@@ -1,0 +1,1500 @@
+file 64019 1735482474                                           
+version 3
+run General-0-20241229-16:25:49-12016
+attr configname General
+attr datetime 20241229-16:25:49
+attr datetimef 20241229-162549
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network NoMobility
+attr processid 12016
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../../inet4.5/images
+config network NoMobility
+config *.hcMaxPublish 3
+config *.hcMaxSubscribe 3
+config **.constraintAreaMinX 0m
+config **.constraintAreaMinY 0m
+config **.constraintAreaMinZ 0m
+config **.constraintAreaMaxX 1800m
+config **.constraintAreaMaxY 1000m
+config **.constraintAreaMaxZ 0m
+config **.dataLinkVisualizer.displayLinks true
+config **.packetFlowVisualizer.displayRoutes true
+config **.displayPacketDrops true
+config **.wlan[*].typename AckingWirelessInterface
+config **.wlan[*].bitrate 2Mbps
+config **.wlan[*].mac.headerLength 23B
+config **.wlan[*].radio.typename UnitDiskRadio
+config **.wlan[*].radio.transmitter.headerLength 96b
+config **.wlan[*].radio.transmitter.interferenceRange 0m
+config **.wlan[*].radio.transmitter.detectionRange 0m
+config **.wlan[*].radio.receiver.ignoreInterference true
+config **.wlan[*].radio.transmitter.communicationRange 220m
+config *.host0.numApps 1
+config *.host0.app*.typename FadipSink
+config *.host4.numApps 1
+config *.host4.app*.typename FadipSourceApp
+config *.host4.app*.delay 0.15
+config *.host5.numApps 1
+config *.host5.app*.typename FadipSourceApp
+config *.host5.app*.delay 0.2
+config *.host6.numApps 1
+config *.host6.app*.typename FadipSourceApp
+config *.host6.app*.delay 0.3
+config *.host7.numApps 1
+config *.host7.app*.typename FadipSourceApp
+config *.host7.app*.delay 0.4
+config **.topic "\"Test\""
+
+vector 0 NoMobility.host0.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 1 NoMobility.host0.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 2 NoMobility.host0.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 3 NoMobility.host0.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 4 NoMobility.host0.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 5 NoMobility.host0.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 6 NoMobility.host0.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 7 NoMobility.host0.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 8 NoMobility.host0.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 9 NoMobility.host0.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 10 NoMobility.host0.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 11 NoMobility.host0.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 12 NoMobility.host0.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 13 NoMobility.host0.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 14 NoMobility.host0.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 15 NoMobility.host0.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 16 NoMobility.host0.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 17 NoMobility.host0.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 18 NoMobility.host0.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 19 NoMobility.host0.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 20 NoMobility.host0.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 21 NoMobility.host0.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 22 NoMobility.host0.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 23 NoMobility.host0.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 24 NoMobility.host0.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 25 NoMobility.host0.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 26 NoMobility.host0.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 27 NoMobility.host1.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 28 NoMobility.host1.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 29 NoMobility.host1.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 30 NoMobility.host1.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 31 NoMobility.host1.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 32 NoMobility.host1.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 33 NoMobility.host1.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 34 NoMobility.host1.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 35 NoMobility.host1.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 36 NoMobility.host1.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 37 NoMobility.host1.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 38 NoMobility.host1.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 39 NoMobility.host1.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 40 NoMobility.host1.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 41 NoMobility.host1.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 42 NoMobility.host1.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 43 NoMobility.host1.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 44 NoMobility.host1.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 45 NoMobility.host1.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 46 NoMobility.host1.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 47 NoMobility.host1.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 48 NoMobility.host1.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 49 NoMobility.host1.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 50 NoMobility.host1.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 51 NoMobility.host1.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 52 NoMobility.host1.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 53 NoMobility.host1.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 54 NoMobility.host2.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 55 NoMobility.host2.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 56 NoMobility.host2.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 57 NoMobility.host2.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 58 NoMobility.host2.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 59 NoMobility.host2.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 60 NoMobility.host2.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 61 NoMobility.host2.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 62 NoMobility.host2.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 63 NoMobility.host2.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 64 NoMobility.host2.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 65 NoMobility.host2.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 66 NoMobility.host2.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 67 NoMobility.host2.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 68 NoMobility.host2.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 69 NoMobility.host2.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 70 NoMobility.host2.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 71 NoMobility.host2.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 72 NoMobility.host2.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 73 NoMobility.host2.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 74 NoMobility.host2.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 75 NoMobility.host2.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 76 NoMobility.host2.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 77 NoMobility.host2.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 78 NoMobility.host2.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 79 NoMobility.host2.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 80 NoMobility.host2.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 81 NoMobility.host3.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 82 NoMobility.host3.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 83 NoMobility.host3.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 84 NoMobility.host3.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 85 NoMobility.host3.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 86 NoMobility.host3.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 87 NoMobility.host3.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 88 NoMobility.host3.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 89 NoMobility.host3.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 90 NoMobility.host3.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 91 NoMobility.host3.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 92 NoMobility.host3.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 93 NoMobility.host3.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 94 NoMobility.host3.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 95 NoMobility.host3.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 96 NoMobility.host3.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 97 NoMobility.host3.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 98 NoMobility.host3.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 99 NoMobility.host3.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 100 NoMobility.host3.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 101 NoMobility.host3.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 102 NoMobility.host3.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 103 NoMobility.host3.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 104 NoMobility.host3.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 105 NoMobility.host3.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 106 NoMobility.host3.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 107 NoMobility.host3.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 108 NoMobility.host4.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 109 NoMobility.host4.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 110 NoMobility.host4.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 111 NoMobility.host4.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 112 NoMobility.host4.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 113 NoMobility.host4.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 114 NoMobility.host4.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 115 NoMobility.host4.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 116 NoMobility.host4.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 117 NoMobility.host4.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 118 NoMobility.host4.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 119 NoMobility.host4.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 120 NoMobility.host4.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 121 NoMobility.host4.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 122 NoMobility.host4.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 123 NoMobility.host4.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 124 NoMobility.host4.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 125 NoMobility.host4.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 126 NoMobility.host4.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 127 NoMobility.host4.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 128 NoMobility.host4.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 129 NoMobility.host4.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 130 NoMobility.host4.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 131 NoMobility.host4.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 132 NoMobility.host4.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 133 NoMobility.host4.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 134 NoMobility.host4.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 135 NoMobility.host5.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 136 NoMobility.host5.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 137 NoMobility.host5.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 138 NoMobility.host5.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 139 NoMobility.host5.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 140 NoMobility.host5.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 141 NoMobility.host5.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 142 NoMobility.host5.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 143 NoMobility.host5.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 144 NoMobility.host5.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 145 NoMobility.host5.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 146 NoMobility.host5.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 147 NoMobility.host5.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 148 NoMobility.host5.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 149 NoMobility.host5.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 150 NoMobility.host5.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 151 NoMobility.host5.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 152 NoMobility.host5.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 153 NoMobility.host5.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 154 NoMobility.host5.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 155 NoMobility.host5.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 156 NoMobility.host5.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 157 NoMobility.host5.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 158 NoMobility.host5.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 159 NoMobility.host5.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 160 NoMobility.host5.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 161 NoMobility.host5.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 162 NoMobility.host6.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 163 NoMobility.host6.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 164 NoMobility.host6.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 165 NoMobility.host6.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 166 NoMobility.host6.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 167 NoMobility.host6.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 168 NoMobility.host6.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 169 NoMobility.host6.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 170 NoMobility.host6.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 171 NoMobility.host6.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 172 NoMobility.host6.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 173 NoMobility.host6.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 174 NoMobility.host6.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 175 NoMobility.host6.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 176 NoMobility.host6.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 177 NoMobility.host6.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 178 NoMobility.host6.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 179 NoMobility.host6.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 180 NoMobility.host6.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 181 NoMobility.host6.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 182 NoMobility.host6.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 183 NoMobility.host6.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 184 NoMobility.host6.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 185 NoMobility.host6.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 186 NoMobility.host6.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 187 NoMobility.host6.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 188 NoMobility.host6.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 189 NoMobility.host7.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 190 NoMobility.host7.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 191 NoMobility.host7.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 192 NoMobility.host7.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 193 NoMobility.host7.wlan[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 194 NoMobility.host7.wlan[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 195 NoMobility.host7.wlan[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 196 NoMobility.host7.wlan[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 197 NoMobility.host7.wlan[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 198 NoMobility.host7.wlan[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 199 NoMobility.host7.wlan[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 200 NoMobility.host7.wlan[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 201 NoMobility.host7.wlan[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 202 NoMobility.host7.wlan[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 203 NoMobility.host7.wlan[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 204 NoMobility.host7.wlan[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 205 NoMobility.host7.wlan[0].mac sentDownPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets sent to lower layer, packetBytes"
+vector 206 NoMobility.host7.wlan[0].mac rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 207 NoMobility.host7.wlan[0].mac rcvdPkFromLl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromLower
+attr title "packets received from lower layer, packetBytes"
+vector 208 NoMobility.host7.wlan[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 209 NoMobility.host7.wlan[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 210 NoMobility.host7.wlan[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 211 NoMobility.host7.wlan[0].radio radioMode:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source radioModeChanged
+attr title "Radio mode"
+vector 212 NoMobility.host7.wlan[0].radio receptionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source receptionStateChanged
+attr title "Radio reception state"
+vector 213 NoMobility.host7.wlan[0].radio transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source transmissionStateChanged
+attr title "Radio transmission state"
+vector 214 NoMobility.host7.wlan[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 215 NoMobility.host7.wlan[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+4	56238 45 0 0 0 0 5 0 0 0 0
+5	56283 45 0 0 0 0 5 0 0 0 0
+22	56328 30 0 0 0 0 3 0 4 4 16
+23	56358 10 0 0 0 0 1 1 1 1 1
+24	56368 10 0 0 0 0 1 1 1 1 1
+31	56378 50 0 0 0 0 5 0 0 0 0
+32	56428 50 0 0 0 0 5 0 0 0 0
+49	56478 30 0 0 0 0 3 0 4 4 16
+50	56508 10 0 0 0 0 1 1 1 1 1
+51	56518 10 0 0 0 0 1 1 1 1 1
+58	56528 50 0 0 0 0 5 0 0 0 0
+59	56578 50 0 0 0 0 5 0 0 0 0
+76	56628 30 0 0 0 0 3 0 4 4 16
+77	56658 10 0 0 0 0 1 1 1 1 1
+78	56668 10 0 0 0 0 1 1 1 1 1
+85	56678 50 0 0 0 0 5 0 0 0 0
+86	56728 50 0 0 0 0 5 0 0 0 0
+103	56778 33 0 0 0 0 3 0 4 4 16
+104	56811 11 0 0 0 0 1 1 1 1 1
+105	56822 11 0 0 0 0 1 1 1 1 1
+112	56833 55 0 0 0 0 5 0 0 0 0
+113	56888 55 0 0 0 0 5 0 0 0 0
+130	56943 33 0 0 0 0 3 0 4 4 16
+131	56976 11 0 0 0 0 1 1 1 1 1
+132	56987 11 0 0 0 0 1 1 1 1 1
+139	56998 55 0 0 0 0 5 0 0 0 0
+140	57053 55 0 0 0 0 5 0 0 0 0
+157	57108 33 0 0 0 0 3 0 4 4 16
+158	57141 11 0 0 0 0 1 1 1 1 1
+159	57152 11 0 0 0 0 1 1 1 1 1
+166	57163 55 0 0 0 0 5 0 0 0 0
+167	57218 55 0 0 0 0 5 0 0 0 0
+184	57273 33 0 0 0 0 3 0 4 4 16
+185	57306 11 0 0 0 0 1 1 1 1 1
+186	57317 11 0 0 0 0 1 1 1 1 1
+193	57328 55 0 0 0 0 5 0 0 0 0
+194	57383 55 0 0 0 0 5 0 0 0 0
+211	57438 33 0 0 0 0 3 0 4 4 16
+212	57471 11 0 0 0 0 1 1 1 1 1
+213	57482 11 0 0 0 0 1 1 1 1 1
+4	57493 9 3 3 0 0 1 0 0 0 0
+5	57502 9 3 3 0 0 1 0 0 0 0
+6	57511 9 3 3 0 0 1 0 0 0 0
+7	57520 10 3 3 0 0 1 48 48 48 2304
+9	57530 10 3 3 0 0 1 48 48 48 2304
+16	57540 11 3 3 0 0 1 29 29 29 841
+17	57551 10 3 3 0 0 1 6 6 6 36
+24	57561 10 4 4 0 0 1 2 2 2 4
+50	57571 23 5 5 0.000000667128 0.000000667128 1 3 3 3 9
+24	57594 18 12 12 0.000164 0.000164 1 1 1 1 1
+50	57612 24 13 13 0.000164667128 0.000164667128 1 1 1 1 1
+42	57636 24 14 14 0.000164667128 0.000164667128 1 6 6 6 36
+45	57660 25 14 14 0.000164667128 0.000164667128 1 29 29 29 841
+31	57685 24 16 16 0.000164667128 0.000164667128 1 0 0 0 0
+32	57709 24 16 16 0.000164667128 0.000164667128 1 0 0 0 0
+33	57733 24 16 16 0.000164667128 0.000164667128 1 0 0 0 0
+34	57757 25 16 16 0.000164667128 0.000164667128 1 48 48 48 2304
+36	57782 25 16 16 0.000164667128 0.000164667128 1 48 48 48 2304
+43	57807 25 16 16 0.000164667128 0.000164667128 1 29 29 29 841
+44	57832 24 16 16 0.000164667128 0.000164667128 1 6 6 6 36
+51	57856 24 17 17 0.000164667128 0.000164667128 1 2 2 2 4
+77	57880 24 18 18 0.000165334256 0.000165334256 1 2 2 2 4
+23	57904 24 19 19 0.000165334256 0.000165334256 1 3 3 3 9
+77	57928 24 20 20 0.000165334256 0.000165334256 1 3 3 3 9
+51	57952 24 31 31 0.000328667128 0.000328667128 1 1 1 1 1
+23	57976 24 32 32 0.000329334256 0.000329334256 1 1 1 1 1
+77	58000 24 33 33 0.000329334256 0.000329334256 1 1 1 1 1
+15	58024 24 34 34 0.000329334256 0.000329334256 1 6 6 6 36
+18	58048 25 34 34 0.000329334256 0.000329334256 1 29 29 29 841
+69	58073 24 35 35 0.000329334256 0.000329334256 1 6 6 6 36
+72	58097 25 35 35 0.000329334256 0.000329334256 1 29 29 29 841
+112	58122 15 47 47 0.15 0.15 1 0 0 0 0
+113	58137 15 47 47 0.15 0.15 1 0 0 0 0
+114	58152 15 47 47 0.15 0.15 1 0 0 0 0
+115	58167 16 47 47 0.15 0.15 1 48 48 48 2304
+117	58183 16 47 47 0.15 0.15 1 48 48 48 2304
+124	58199 16 47 47 0.15 0.15 1 29 29 29 841
+125	58215 15 47 47 0.15 0.15 1 6 6 6 36
+132	58230 15 48 48 0.15 0.15 1 2 2 2 4
+104	58245 25 49 49 0.150000667128 0.150000667128 1 3 3 3 9
+158	58270 25 50 50 0.150000667128 0.150000667128 1 3 3 3 9
+132	58295 19 56 56 0.150164 0.150164 1 1 1 1 1
+104	58314 25 57 57 0.150164667128 0.150164667128 1 1 1 1 1
+158	58339 25 58 58 0.150164667128 0.150164667128 1 1 1 1 1
+96	58364 24 59 59 0.150164667128 0.150164667128 1 6 6 6 36
+99	58388 25 59 59 0.150164667128 0.150164667128 1 29 29 29 841
+150	58413 25 60 60 0.150164667128 0.150164667128 1 6 6 6 36
+153	58438 26 60 60 0.150164667128 0.150164667128 1 29 29 29 841
+85	58464 24 63 63 0.150164667128 0.150164667128 1 0 0 0 0
+86	58488 24 63 63 0.150164667128 0.150164667128 1 0 0 0 0
+87	58512 24 63 63 0.150164667128 0.150164667128 1 0 0 0 0
+88	58536 25 63 63 0.150164667128 0.150164667128 1 48 48 48 2304
+90	58561 25 63 63 0.150164667128 0.150164667128 1 48 48 48 2304
+97	58586 25 63 63 0.150164667128 0.150164667128 1 29 29 29 841
+98	58611 24 63 63 0.150164667128 0.150164667128 1 6 6 6 36
+139	58635 25 64 64 0.150164667128 0.150164667128 1 0 0 0 0
+140	58660 25 64 64 0.150164667128 0.150164667128 1 0 0 0 0
+141	58685 25 64 64 0.150164667128 0.150164667128 1 0 0 0 0
+142	58710 26 64 64 0.150164667128 0.150164667128 1 48 48 48 2304
+144	58736 26 64 64 0.150164667128 0.150164667128 1 48 48 48 2304
+151	58762 26 64 64 0.150164667128 0.150164667128 1 29 29 29 841
+152	58788 25 64 64 0.150164667128 0.150164667128 1 6 6 6 36
+105	58813 25 65 65 0.150164667128 0.150164667128 1 2 2 2 4
+159	58838 25 66 66 0.150164667128 0.150164667128 1 2 2 2 4
+77	58863 24 67 67 0.150165334256 0.150165334256 1 2 2 2 4
+185	58887 25 68 68 0.150165334256 0.150165334256 1 2 2 2 4
+77	58912 24 69 69 0.150165334256 0.150165334256 1 3 3 3 9
+131	58936 25 70 70 0.150165334256 0.150165334256 1 3 3 3 9
+185	58961 25 72 72 0.150165334256 0.150165334256 1 3 3 3 9
+105	58986 25 86 86 0.150328667128 0.150328667128 1 1 1 1 1
+159	59011 25 87 87 0.150328667128 0.150328667128 1 1 1 1 1
+77	59036 24 88 88 0.150329334256 0.150329334256 1 1 1 1 1
+131	59060 25 89 89 0.150329334256 0.150329334256 1 1 1 1 1
+185	59085 25 91 91 0.150329334256 0.150329334256 1 1 1 1 1
+69	59110 24 92 92 0.150329334256 0.150329334256 1 6 6 6 36
+72	59134 25 92 92 0.150329334256 0.150329334256 1 29 29 29 841
+123	59159 25 93 93 0.150329334256 0.150329334256 1 6 6 6 36
+126	59184 26 93 93 0.150329334256 0.150329334256 1 29 29 29 841
+177	59210 25 94 94 0.150329334256 0.150329334256 1 6 6 6 36
+180	59235 26 94 94 0.150329334256 0.150329334256 1 29 29 29 841
+58	59261 24 98 98 0.150329334256 0.150329334256 1 0 0 0 0
+59	59285 24 98 98 0.150329334256 0.150329334256 1 0 0 0 0
+60	59309 24 98 98 0.150329334256 0.150329334256 1 0 0 0 0
+61	59333 25 98 98 0.150329334256 0.150329334256 1 48 48 48 2304
+63	59358 25 98 98 0.150329334256 0.150329334256 1 48 48 48 2304
+70	59383 25 98 98 0.150329334256 0.150329334256 1 29 29 29 841
+71	59408 24 98 98 0.150329334256 0.150329334256 1 6 6 6 36
+78	59432 24 99 99 0.150329334256 0.150329334256 1 2 2 2 4
+50	59456 25 100 100 0.150330001384 0.150330001384 1 2 2 2 4
+104	59481 26 102 102 0.150330001384 0.150330001384 1 2 2 2 4
+50	59507 25 104 104 0.150330001384 0.150330001384 1 3 3 3 9
+104	59532 26 105 105 0.150330001384 0.150330001384 1 3 3 3 9
+78	59558 25 117 117 0.150493334256 0.150493334256 1 1 1 1 1
+50	59583 25 118 118 0.150494001384 0.150494001384 1 1 1 1 1
+104	59608 26 119 119 0.150494001384 0.150494001384 1 1 1 1 1
+42	59634 25 120 120 0.150494001384 0.150494001384 1 6 6 6 36
+45	59659 26 120 120 0.150494001384 0.150494001384 1 29 29 29 841
+96	59685 25 121 121 0.150494001384 0.150494001384 1 6 6 6 36
+99	59710 26 121 121 0.150494001384 0.150494001384 1 29 29 29 841
+31	59736 25 124 124 0.150494001384 0.150494001384 1 0 0 0 0
+32	59761 25 124 124 0.150494001384 0.150494001384 1 0 0 0 0
+33	59786 25 124 124 0.150494001384 0.150494001384 1 0 0 0 0
+34	59811 26 124 124 0.150494001384 0.150494001384 1 48 48 48 2304
+36	59837 26 124 124 0.150494001384 0.150494001384 1 48 48 48 2304
+43	59863 26 124 124 0.150494001384 0.150494001384 1 29 29 29 841
+44	59889 25 124 124 0.150494001384 0.150494001384 1 6 6 6 36
+51	59914 25 125 125 0.150494001384 0.150494001384 1 2 2 2 4
+23	59939 25 126 126 0.150494668512 0.150494668512 1 2 2 2 4
+23	59964 25 128 128 0.150494668512 0.150494668512 1 3 3 3 9
+77	59989 25 129 129 0.150494668512 0.150494668512 1 3 3 3 9
+51	60014 25 138 138 0.150658001384 0.150658001384 1 1 1 1 1
+23	60039 25 139 139 0.150658668512 0.150658668512 1 1 1 1 1
+77	60064 25 140 140 0.150658668512 0.150658668512 1 1 1 1 1
+15	60089 25 141 141 0.150658668512 0.150658668512 1 6 6 6 36
+18	60114 26 141 141 0.150658668512 0.150658668512 1 29 29 29 841
+69	60140 25 142 142 0.150658668512 0.150658668512 1 6 6 6 36
+72	60165 26 142 142 0.150658668512 0.150658668512 1 29 29 29 841
+139	60191 15 158 158 0.2 0.2 1 0 0 0 0
+140	60206 15 158 158 0.2 0.2 1 0 0 0 0
+141	60221 15 158 158 0.2 0.2 1 0 0 0 0
+142	60236 16 158 158 0.2 0.2 1 48 48 48 2304
+144	60252 16 158 158 0.2 0.2 1 48 48 48 2304
+151	60268 16 158 158 0.2 0.2 1 29 29 29 841
+152	60284 15 158 158 0.2 0.2 1 6 6 6 36
+159	60299 15 159 159 0.2 0.2 1 2 2 2 4
+131	60314 26 160 160 0.200000667128 0.200000667128 1 3 3 3 9
+185	60340 26 161 161 0.200000667128 0.200000667128 1 3 3 3 9
+159	60366 20 167 167 0.200164 0.200164 1 1 1 1 1
+131	60386 26 168 168 0.200164667128 0.200164667128 1 1 1 1 1
+185	60412 26 169 169 0.200164667128 0.200164667128 1 1 1 1 1
+123	60438 26 170 170 0.200164667128 0.200164667128 1 6 6 6 36
+126	60464 27 170 170 0.200164667128 0.200164667128 1 29 29 29 841
+177	60491 26 171 171 0.200164667128 0.200164667128 1 6 6 6 36
+180	60517 27 171 171 0.200164667128 0.200164667128 1 29 29 29 841
+112	60544 26 174 174 0.200164667128 0.200164667128 1 0 0 0 0
+113	60570 26 174 174 0.200164667128 0.200164667128 1 0 0 0 0
+114	60596 26 174 174 0.200164667128 0.200164667128 1 0 0 0 0
+115	60622 27 174 174 0.200164667128 0.200164667128 1 48 48 48 2304
+117	60649 27 174 174 0.200164667128 0.200164667128 1 48 48 48 2304
+124	60676 27 174 174 0.200164667128 0.200164667128 1 29 29 29 841
+125	60703 26 174 174 0.200164667128 0.200164667128 1 6 6 6 36
+166	60729 26 175 175 0.200164667128 0.200164667128 1 0 0 0 0
+167	60755 26 175 175 0.200164667128 0.200164667128 1 0 0 0 0
+168	60781 26 175 175 0.200164667128 0.200164667128 1 0 0 0 0
+169	60807 27 175 175 0.200164667128 0.200164667128 1 48 48 48 2304
+171	60834 27 175 175 0.200164667128 0.200164667128 1 48 48 48 2304
+178	60861 27 175 175 0.200164667128 0.200164667128 1 29 29 29 841
+179	60888 26 175 175 0.200164667128 0.200164667128 1 6 6 6 36
+132	60914 26 176 176 0.200164667128 0.200164667128 1 2 2 2 4
+186	60940 26 177 177 0.200164667128 0.200164667128 1 2 2 2 4
+104	60966 26 178 178 0.200165334256 0.200165334256 1 2 2 2 4
+212	60992 26 179 179 0.200165334256 0.200165334256 1 2 2 2 4
+104	61018 26 180 180 0.200165334256 0.200165334256 1 3 3 3 9
+158	61044 26 181 181 0.200165334256 0.200165334256 1 3 3 3 9
+212	61070 26 183 183 0.200165334256 0.200165334256 1 3 3 3 9
+132	61096 26 197 197 0.200328667128 0.200328667128 1 1 1 1 1
+186	61122 26 198 198 0.200328667128 0.200328667128 1 1 1 1 1
+104	61148 26 199 199 0.200329334256 0.200329334256 1 1 1 1 1
+158	61174 26 200 200 0.200329334256 0.200329334256 1 1 1 1 1
+212	61200 26 202 202 0.200329334256 0.200329334256 1 1 1 1 1
+96	61226 25 203 203 0.200329334256 0.200329334256 1 6 6 6 36
+99	61251 26 203 203 0.200329334256 0.200329334256 1 29 29 29 841
+150	61277 26 204 204 0.200329334256 0.200329334256 1 6 6 6 36
+153	61303 27 204 204 0.200329334256 0.200329334256 1 29 29 29 841
+204	61330 26 205 205 0.200329334256 0.200329334256 1 6 6 6 36
+207	61356 27 205 205 0.200329334256 0.200329334256 1 29 29 29 841
+8	61383 50 329 329 0.400331335641 0.410332669897 2 0 480 480 230400
+10	61433 52 329 329 0.400331335641 0.410332669897 2 0 480 480 230400
+35	61485 52 329 329 0.400331335641 0.410332669897 2 0 960 960 921600
+37	61537 52 329 329 0.400331335641 0.410332669897 2 0 960 960 921600
+62	61589 52 329 329 0.400331335641 0.410332669897 2 0 480 480 230400
+64	61641 52 329 329 0.400331335641 0.410332669897 2 0 480 480 230400
+89	61693 52 329 329 0.400331335641 0.410332669897 2 0 480 480 230400
+91	61745 52 329 329 0.400331335641 0.410332669897 2 0 480 480 230400
+116	61797 54 329 329 0.400331335641 0.410332669897 2 0 960 960 921600
+118	61851 54 329 329 0.400331335641 0.410332669897 2 0 960 960 921600
+123	61905 26 268 268 0.300329334256 0.300329334256 1 6 6 6 36
+126	61931 27 268 268 0.300329334256 0.300329334256 1 29 29 29 841
+131	61958 78 244 265 0.300165334256 0.300329334256 3 1 3 6 14
+139	62036 26 240 240 0.300164667128 0.300164667128 1 0 0 0 0
+140	62062 26 240 240 0.300164667128 0.300164667128 1 0 0 0 0
+141	62088 26 240 240 0.300164667128 0.300164667128 1 0 0 0 0
+142	62114 27 240 240 0.300164667128 0.300164667128 1 48 48 48 2304
+143	62141 55 329 329 0.400331335641 0.410332669897 2 0 1440 1440 2073600
+144	62196 27 240 240 0.300164667128 0.300164667128 1 48 48 48 2304
+145	62223 55 329 329 0.400331335641 0.410332669897 2 0 1440 1440 2073600
+150	62278 52 236 319 0.300164667128 0.400329334256 2 6 6 12 72
+151	62330 27 240 240 0.300164667128 0.300164667128 1 29 29 29 841
+152	62357 26 240 240 0.300164667128 0.300164667128 1 6 6 6 36
+153	62383 54 236 319 0.300164667128 0.400329334256 2 29 29 58 1682
+158	62437 130 226 317 0.300000667128 0.400329334256 5 1 3 10 24
+159	62567 52 242 263 0.300164667128 0.300328667128 2 1 2 3 5
+166	62619 41 224 301 0.3 0.400164667128 2 0 0 0 0
+167	62660 41 224 301 0.3 0.400164667128 2 0 0 0 0
+168	62701 41 224 301 0.3 0.400164667128 2 0 0 0 0
+169	62742 43 224 301 0.3 0.400164667128 2 48 48 96 4608
+170	62785 55 329 329 0.400331335641 0.410332669897 2 0 1440 1440 2073600
+171	62840 43 224 301 0.3 0.400164667128 2 48 48 96 4608
+172	62883 55 329 329 0.400331335641 0.410332669897 2 0 1440 1440 2073600
+177	62938 52 269 299 0.300329334256 0.400164667128 2 6 6 12 72
+178	62990 43 224 301 0.3 0.400164667128 2 29 29 58 1682
+179	63033 41 224 301 0.3 0.400164667128 2 6 6 12 72
+180	63074 54 269 299 0.300329334256 0.400164667128 2 29 29 58 1682
+185	63128 104 246 298 0.300165334256 0.400164667128 4 1 3 8 20
+186	63232 87 225 316 0.3 0.400328667128 4 1 2 6 10
+193	63319 41 241 288 0.300164667128 0.4 2 0 0 0 0
+194	63360 41 241 288 0.300164667128 0.4 2 0 0 0 0
+195	63401 41 241 288 0.300164667128 0.4 2 0 0 0 0
+196	63442 43 241 288 0.300164667128 0.4 2 48 48 96 4608
+197	63485 54 329 329 0.400331335641 0.410332669897 2 0 960 960 921600
+198	63539 43 241 288 0.300164667128 0.4 2 48 48 96 4608
+199	63582 54 329 329 0.400331335641 0.410332669897 2 0 960 960 921600
+204	63636 52 237 320 0.300164667128 0.400329334256 2 6 6 12 72
+205	63688 43 241 288 0.300164667128 0.4 2 29 29 58 1682
+206	63731 41 241 288 0.300164667128 0.4 2 6 6 12 72
+207	63772 54 237 320 0.300164667128 0.400329334256 2 29 29 58 1682
+212	63826 104 227 318 0.300000667128 0.400329334256 4 1 3 8 20
+213	63930 87 243 297 0.300164667128 0.400164 4 1 2 6 10
+

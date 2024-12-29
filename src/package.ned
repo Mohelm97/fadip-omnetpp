@@ -1,0 +1,3 @@
+package fadip;
+
+@license(LGPL);

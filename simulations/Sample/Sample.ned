@@ -19,10 +19,6 @@ network Sample
             parameters:
                 @display("p=100,300;is=s");
         }
-        configurator: Ipv4NetworkConfigurator {
-            parameters:
-                @display("p=100,100;is=s");
-        }
         radioMedium: UnitDiskRadioMedium {
             parameters:
                 @display("p=100,200;is=s");

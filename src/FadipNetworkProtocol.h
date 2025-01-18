@@ -5,7 +5,7 @@
 #include "packets/PublishMessage_m.h"
 #include "packets/SubscribeMessage_m.h"
 #include <omnetpp.h>
-#include "inet/networklayer/base/NetworkProtocolBase.cc"
+#include "inet/networklayer/base/NetworkProtocolBase.h"
 #include "inet/networklayer/common/NetworkInterface.h"
 #include "inet/common/packet/tag/SharingTagSet.h"
 #include "inet/linklayer/common/MacAddressTag_m.h"
@@ -48,6 +48,11 @@ public:
     static int numberOfBroadcasts;
     static int numberOfSubBroadcasts;
     static int numberOfPubBroadcasts;
+    static int totalSentMessages;
+    static int totalSentMessagesToSubs;
+    static int totalReceivedMessages;
+    static std::map<std::string, int> topicSubscripers;
+
     static const inet::Protocol pubsupProtocol;
     static const inet::Protocol pubsupDataProtocol;
     static int nonceCounter;

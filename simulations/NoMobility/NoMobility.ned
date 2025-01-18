@@ -54,4 +54,37 @@ network NoMobility
             parameters:
                 @display("p=1650,200");
         }
+        
+        host8: FadipDevice {
+            parameters:
+                @display("p=250,400");
+        }
+        host9: FadipDevice {
+            parameters:
+                @display("p=450,400");
+        }
+        host10: FadipDevice {
+            parameters:
+                @display("p=650,400");
+        }
+        host11: FadipDevice {
+            parameters:
+                @display("p=850,400");
+        }
+        host12: FadipDevice {
+            parameters:
+                @display("p=1050,400");
+        }
+        host13: FadipDevice {
+            parameters:
+                @display("p=1250,400");
+        }
+        host14: FadipDevice {
+            parameters:
+                @display("p=1450,400");
+        }
+        host15: FadipDevice {
+            parameters:
+                @display("p=1650,400");
+        }
 }

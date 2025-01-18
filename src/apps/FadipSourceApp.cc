@@ -16,6 +16,7 @@ void FadipSourceApp::initialize(int stage)
         pubChunk->setType(PubSubMessageType::Publication);
         pubPacket->insertAtFront(pubChunk);
         double delay = par("delay").doubleValue();
+        rate = par("rate").doubleValue();
         scheduleAt(delay, pubPacket);
     }
 }
@@ -30,7 +31,10 @@ void FadipSourceApp::handleStopOperation(inet::LifecycleOperation *operation) {}
 void FadipSourceApp::handleCrashOperation(inet::LifecycleOperation *operation) {}
 void FadipSourceApp::handleMessageWhenUp(inet::cMessage *msg) {
     if (msg->isSelfMessage()){
-        // scheduleAfter(0.1, msg->dup());
+        FadipNetworkProtocol::totalSentMessages++;
+        FadipNetworkProtocol::totalSentMessagesToSubs += FadipNetworkProtocol::topicSubscripers[topic];
+        if (rate != 0)
+            scheduleAfter(1/rate, msg->dup());
         auto& tags = check_and_cast<inet::ITaggedObject *>(msg)->getTags();
         tags.addTagIfAbsent<inet::DispatchProtocolReq>()->setProtocol(&FadipNetworkProtocol::pubsupProtocol);
         send(msg, gate("socketOut"));

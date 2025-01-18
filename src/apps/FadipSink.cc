@@ -1,6 +1,7 @@
 #include "FadipSink.h"
 #include "../FadipNetworkProtocol.h"
 #include "inet/common/ProtocolTag_m.h"
+#include "inet/common/stlutils.h"
 Define_Module(FadipSink);
 
 void FadipSink::initialize(int stage)
@@ -19,6 +20,7 @@ void FadipSink::initialize(int stage)
         WATCH(recivedMessages);
         WATCH_VECTOR(recivedMessagesV);
     } else if (stage == inet::INITSTAGE_APPLICATION_LAYER) {
+        FadipNetworkProtocol::topicSubscripers[topic]++;
         // inet::registerService(FadipNetworkProtocol::pubsupDataProtocol, gate("socketOut"), gate("socketIn"));
         inet::registerProtocol(FadipNetworkProtocol::pubsupDataProtocol, gate("socketOut"), gate("socketIn"));
     }
@@ -46,6 +48,7 @@ void FadipSink::handleMessageWhenUp(inet::cMessage *msg) {
             if (strcmp(topic, pubSubChunk->getTopic()) == 0 && !inet::contains(recivedMessagesV, pubSubChunk->getNonce())){
                 recivedMessagesV.emplace_back(pubSubChunk->getNonce());
                 recivedMessages++;
+                FadipNetworkProtocol::totalReceivedMessages++;
                 EV_INFO << "RECIVED PUBLISH MESSAGE TOPIC: " << pubSubChunk->getTopic() << " FROM: " << pubSubChunk->getNodeName() << inet::endl;
             }
         }

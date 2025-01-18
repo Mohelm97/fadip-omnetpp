@@ -9,6 +9,7 @@
 class FadipSourceApp : public inet::ApplicationBase
 {
   protected:
+    double rate;
     const char* topic;
     virtual void initialize(int stage) override;
     virtual void handleMessage(inet::cMessage *msg) override;

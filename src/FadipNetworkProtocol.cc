@@ -1,4 +1,6 @@
 #include "FadipNetworkProtocol.h"
+#include "inet/common/stlutils.h"
+#include "inet/networklayer/common/L3AddressTag_m.h"
 using inet::endl;
 Define_Module(FadipNetworkProtocol);
 FadipNetworkProtocol::FadipNetworkProtocol() {
@@ -15,6 +17,10 @@ void FadipNetworkProtocol::initialize(int stage)
         FadipNetworkProtocol::numberOfSubBroadcasts = 0;
         FadipNetworkProtocol::numberOfPubBroadcasts = 0;
         FadipNetworkProtocol::nonceCounter = 0;
+        FadipNetworkProtocol::totalSentMessages = 0;
+        FadipNetworkProtocol::totalSentMessagesToSubs = 0;
+        FadipNetworkProtocol::totalReceivedMessages = 0;
+        FadipNetworkProtocol::topicSubscripers.clear();
         if (inet::ProtocolGroup::getEthertypeProtocolGroup()->findProtocol(0xBBBB) == nullptr) {
             // Add Protocol assume that it's dynamic, and fuck it :)
             inet::ProtocolGroup::getEthertypeProtocolGroup()->addProtocol(getProtocol().getId(), &getProtocol());
@@ -23,6 +29,7 @@ void FadipNetworkProtocol::initialize(int stage)
         hcMaxPublish = par("hcMaxPublish");
         name = getParentModule()->getParentModule()->getFullName();
         WATCH_VECTOR(myTopics);
+        WATCH_MAP(topicSubscripers);
         WATCH(FadipNetworkProtocol::numberOfBroadcasts);
         WATCH(FadipNetworkProtocol::numberOfSubBroadcasts);
         WATCH(FadipNetworkProtocol::numberOfPubBroadcasts);
@@ -122,7 +129,7 @@ void FadipNetworkProtocol::handlePublication(inet::Packet *packet) {
     if (inet::contains(knownTopics, pubChunk->getTopic())) {
         compareTo += hcMaxSubscribe - 1;
     }
-    if (pubChunk->getHopCount() + 1 < compareTo) {
+    if (pubChunk->getHopCount() < compareTo) {
         FadipNetworkProtocol::numberOfPubBroadcasts++;
         broadcastMessage(packet);
     } else if (!sentUp) {
@@ -156,9 +163,10 @@ void FadipNetworkProtocol::handleCrashOperation(inet::LifecycleOperation *operat
 void FadipNetworkProtocol::finish() {
     if (numberOfBroadcasts == 0)
         return;
-    EV_INFO << "Number Of Broadcasts: " << numberOfBroadcasts << inet::endl;
-    EV_INFO << "Number Of Sub Broadcasts: " << numberOfSubBroadcasts << inet::endl;
-    EV_INFO << "Number Of Pub Broadcasts: " << numberOfPubBroadcasts << inet::endl;
+    EV_INFO << "FadipNetwork Broadcasts:\n" << "  Total: " << numberOfBroadcasts << "\n    Pub: " << numberOfPubBroadcasts << "\n    Sub: " << numberOfSubBroadcasts << endl;
+    EV_INFO << "Total Sent Messages: " << totalSentMessages << "\nTotal Send*Subs: " << totalSentMessagesToSubs << "\nTotal Received Messages: " << totalReceivedMessages
+                << "\nDelivery Rate: " << (totalReceivedMessages*100/totalSentMessagesToSubs) << endl;
+    EV_INFO << "EXCEL ROW: " << numberOfBroadcasts << "\t" << numberOfSubBroadcasts << "\t" <<  numberOfPubBroadcasts << "\t" << totalReceivedMessages << "\t" << totalSentMessagesToSubs << endl;
     numberOfBroadcasts = 0;
 }
 
@@ -168,6 +176,11 @@ int FadipNetworkProtocol::numberOfBroadcasts = 0;
 int FadipNetworkProtocol::numberOfSubBroadcasts = 0;
 int FadipNetworkProtocol::numberOfPubBroadcasts = 0;
 int FadipNetworkProtocol::nonceCounter = 0;
+int FadipNetworkProtocol::totalSentMessages = 0;
+int FadipNetworkProtocol::totalSentMessagesToSubs = 0;
+int FadipNetworkProtocol::totalReceivedMessages = 0;
+std::map<std::string, int> FadipNetworkProtocol::topicSubscripers;
+
 const inet::Protocol& FadipNetworkProtocol::getProtocol() const {
     return pubsupProtocol;
 }
